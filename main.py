@@ -22,7 +22,7 @@ class Test(Resource):
 
 class Badge(Resource):
     def post(self):
-        database.db.Badges.insert_one(
+        _id = str(database.db.Badges.insert_one(
             {
                 'header_img_url':request.json['header_img_url'],
                 'profile_picture_url':request.json['profile_picture_url'],
@@ -33,7 +33,10 @@ class Badge(Resource):
                 'likes':request.json['likes'],
                 'post':request.json['post'],
             }
-        )
+        ).inserted_id)
+
+        return jsonify({"_id": _id})
+
 
 class AllBadge(Resource):
     """ Get all badges """
