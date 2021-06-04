@@ -10,4 +10,5 @@ DB_NAME = os.getenv("DBNAME")
 
 client = pymongo.MongoClient(
     f"mongodb+srv://{DB_USER}:<{DB_PASSWORD}>@example.vfkmc.mongodb.net/{DB_NAME}?retryWrites=true&w=majority")
+    
 db = client.test
