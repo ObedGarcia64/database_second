@@ -8,6 +8,7 @@ import db_config as database
 #resources
 from res.badge import Badge
 from res.badges import Badges
+from res.posts import Posts
 
 app=Flask(__name__)
 api=Api(app)
@@ -39,6 +40,15 @@ def get_kids():
 
     return jsonify(response)
 
+@app.route('/all/users_name/')
+def get_all_names():
+    response = list(database.db.Badges.find({}, {'name':1}))
+
+    for document in response:
+        document["_id"] = str(document['_id'])
+
+    return jsonify(response)
+
 """
 
 database.db.Badges.
@@ -55,6 +65,7 @@ database.db.Badges.
 
 api. add_resource(Badge,'/new/','/<string:by>=<string:data>/')
 api. add_resource(Badges, '/all/', '/delete/all/')
+api. add_resource(Posts, '/new/post/<string:_id>/', '/post/<string:_id>/', '/<string:_id>/<string:uuid>')
 
 if __name__ == '__main__':
     app.run(load_dotenv=True)
