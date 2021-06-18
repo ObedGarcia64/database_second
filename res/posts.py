@@ -45,7 +45,7 @@ class Posts (Resource):
             "posts":{"id":uuid}
         }})
 
-        return jsonify({"message": f"The post with uuid={uuid} was delated"})
+        return jsonify({"message": f"The post with uuid={uuid} was deleted"})
 
     def abort_if_not_exist(self, _id):
         response = database.db.Badges.find_one({"_id":ObjectId(_id)}, {"name":1, "posts":1})
@@ -53,4 +53,4 @@ class Posts (Resource):
         if response:
             return response
         else:
-            abort(jsonify({"status":404, "_id": f"{_id} not foun"}))
+            abort(jsonify({"status":404, "_id": f"{_id} not found"}))

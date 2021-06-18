@@ -14,39 +14,38 @@ class Badge(Resource):
 
 
     def post(self):
-        _id = str(database.db.Badges.insert_one(
-            {
-                'header_img_url':request.json['header_img_url'],
-                'profile_picture_url':request.json['profile_picture_url'],
-                'name':request.json['name'],
-                'age':request.json['age'],
-                'city':request.json['city'],
-                'followers':request.json['followers'],
-                'likes':request.json['likes'],
-                'post':request.json['post'],
-                'posts':request.json['posts']
-            }
-        ).inserted_id)
+        _id = str(database.db.Badges.insert_one({
+            'header_img_url':request.json['header_img_url'],
+            'profile_picture_url':request.json['profile_picture_url'],
+            'name':request.json['name'],
+            'age':request.json['age'],
+            'city':request.json['city'],
+            'bets':request.json['bets'],
+            'state':request.json['state'],
+
+    }).inserted_id)
 
         return jsonify({"_id": _id})
 
     def put(self, by, data):
+
         response = self.abort_if_not_exist(by, data)
 
         for key, value in request.json.items():
             response[key] = value
-        
+
         database.db.Badges.update_one({'_id':ObjectId(response['_id'])},
         {'$set':{
             'header_img_url': response['header_img_url'],
             'profile_picture_url': response['profile_picture_url'],
-            'name': response['name'],
-            'age': response['age'],
-            'city': response['city'],
-            'followers': response['followers'],
-            'likes': response['likes'],
-            'post': response['post'],
-            'posts': response['posts']
+            'name':response['name'],
+            'age':response['age'],
+            'city':response['city'],
+            'bets':response['bets'],
+            'state':response['state'],
+
+
+
         }})
 
         response ['_id'] = str (response['_id'])

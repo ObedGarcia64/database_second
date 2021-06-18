@@ -3,6 +3,7 @@ from flask_restful import Api
 from flask_pymongo import pymongo
 from bson.json_util import dumps, ObjectId
 from werkzeug.wrappers import response
+from flask_cors import CORS
 import db_config as database
 
 #resources
@@ -12,6 +13,7 @@ from res.posts import Posts
 
 app=Flask(__name__)
 api=Api(app)
+CORS(app)
 
 @app.route('/all/adults/')
 def get_adults():
@@ -63,7 +65,7 @@ database.db.Badges.
 
 
 
-api. add_resource(Badge,'/new/','/<string:by>=<string:data>/')
+api. add_resource(Badge,'/new/','/<string:by>:<string:data>/')
 api. add_resource(Badges, '/all/', '/delete/all/')
 api. add_resource(Posts, '/new/post/<string:_id>/', '/post/<string:_id>/', '/<string:_id>/<string:uuid>')
 
